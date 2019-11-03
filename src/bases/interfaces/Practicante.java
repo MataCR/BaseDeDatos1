@@ -156,6 +156,12 @@ public class Practicante extends javax.swing.JFrame {
 
         label4.setText("Fecha(año-mes-dia)");
 
+        txtFechaMinuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaMinutaActionPerformed(evt);
+            }
+        });
+
         label5.setText("Titulo");
 
         label7.setText("Lugar ");
@@ -280,8 +286,6 @@ public class Practicante extends javax.swing.JFrame {
                     .addContainerGap(490, Short.MAX_VALUE)))
         );
 
-        label5.getAccessibleContext().setAccessibleName("Titulo");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -374,6 +378,10 @@ public class Practicante extends javax.swing.JFrame {
                 }       
        
     }//GEN-LAST:event_btnCrearMinutaActionPerformed
+
+    private void txtFechaMinutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaMinutaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaMinutaActionPerformed
 
     /**
      * @param args the command line arguments
