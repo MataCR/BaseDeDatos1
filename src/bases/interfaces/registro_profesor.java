@@ -277,7 +277,7 @@ public class registro_profesor extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-                try{
+        try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/progra2?", "root", "");
             PreparedStatement pstnt = conn.prepareStatement("Insert into profesor values (?,?,?,?,?,?,?,?)");
@@ -321,6 +321,7 @@ public class registro_profesor extends javax.swing.JFrame {
     private void tipo_profesorComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipo_profesorComboActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tipo_profesorComboActionPerformed
+
 
     /**
      * @param args the command line arguments
