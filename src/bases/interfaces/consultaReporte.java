@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -52,7 +54,7 @@ public class consultaReporte extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         periodoCombo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaReporte = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,7 +66,7 @@ public class consultaReporte extends javax.swing.JFrame {
 
         periodoCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -75,7 +77,7 @@ public class consultaReporte extends javax.swing.JFrame {
                 "Cedula", "Primer Nombre", "Primer Apellido", "Nota"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaReporte);
 
         jButton1.setText("Consultar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +130,22 @@ public class consultaReporte extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/progra2?", "root", "");
+            PreparedStatement pstnt=conn.prepareStatement("Select `cedula`,`primerNombre`,`primer_apellido`, (`nota_asesor`+`nota_supervisor`)/2 as 'nota_final' \n From `nota`,`practicante`,`periodo`,`entregable`\n Where practicante.id_periodo = periodo.id_periodo and nota.id_entregable = entregable.id_entregable and entregable.id_periodo = periodo.id_periodo and entregable.id_periodo = " + Integer.parseInt(periodoCombo.getSelectedItem().toString()) + "and practicante.id_periodo= " + Integer.parseInt(periodoCombo.getSelectedItem().toString()));
+            ResultSet rs=pstnt.executeQuery();
+            DefaultTableModel tm=(DefaultTableModel)tablaReporte.getModel();
+            tm.setRowCount(0);
         
+            while (rs.next()){
+                Object o[]= {rs.getInt("cedula"),rs.getString("primerNombre"),rs.getString("primer_Apellido"),rs.getString("nota_final")};
+                tm.addRow(o);
+            }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -171,7 +188,7 @@ public class consultaReporte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> periodoCombo;
+    private javax.swing.JTable tablaReporte;
     // End of variables declaration//GEN-END:variables
 }
